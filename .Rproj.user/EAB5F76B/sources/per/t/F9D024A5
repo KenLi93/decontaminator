@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1543935826343.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2962270247",
+    "id" : "F9D024A5",
+    "lastKnownWriteTime" : 1543938978,
+    "last_content_update" : 1543938978752,
+    "path" : "P:/git/decontaminator/test_source_tracker.R",
+    "project_path" : "test_source_tracker.R",
+    "properties" : {
+        "cursorPosition" : "30,0",
+        "scrollLine" : "12"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

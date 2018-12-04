@@ -1,0 +1,31 @@
+library(phyloseq)
+library(dplyr)
+source("source_tracker.R")
+data("GlobalPatterns")
+
+traindata <- GlobalPatterns %>% 
+  subset_samples(SampleType %in% c("Soil", "Feces", "Skin", "Freshwater")) %>%
+  (function(x) {
+    prune_taxa((x %>% otu_table %>% rowSums()) > 1000, x)
+    })
+
+train <- traindata %>% 
+  subset_samples(SampleType %in% c("Soil", "Feces", "Skin")) %>%
+  otu_table %>% 
+  as.matrix %>% 
+  t ## each row is a sample
+
+test <- traindata %>% 
+  subset_samples(SampleType %in% c("Freshwater")) %>%
+  otu_table %>% 
+  as.matrix %>% 
+  t %>% .[1,] ## each row is a sample
+
+envs <- traindata %>% sample_data %>% .$SampleType %>% .[. != "Freshwater"]
+
+stobj <- sourcetracker(train = train, envs = envs, rarefaction_depth = 1000)
+
+stpred <- predict.sourcetracker(stobj, test = test)
+
+save.image("test_st.RData")
+traindata %>% distance("wunifrac")
